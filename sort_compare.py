@@ -50,15 +50,15 @@ def main():
 
     for i in range(n):
         random_num = random.choice(sample)
-        arr = random.sample(range(0, random_num * 10 + i), random_num)
+        arr = random.sample(range(0, random_num), random_num)
         avg["ins"] += insertion_sort(arr)[1]
         avg["shell"] += shell_sort(arr)[1]
         avg["py_sort"] += python_sort(arr)[1]
     
     #Print statements
-    ins_avg = 'Insertion Sort took {0} seconds to run, on average'.format(str(avg["seq"] /n))
-    shell_avg = 'Shell Sort took {0} seconds to run, on average'.format(str(avg["ord_seq"] /n))
-    py_sort_avg = 'Python Built-in Sort took {0} seconds to run, on average'.format(str(avg["bin_iter"] /n))
+    ins_avg = 'Insertion Sort took {0} seconds to run, on average'.format(str(avg["ins"] /n))
+    shell_avg = 'Shell Sort took {0} seconds to run, on average'.format(str(avg["shell"] /n))
+    py_sort_avg = 'Python Built-in Sort took {0} seconds to run, on average'.format(str(avg["py_sort"] /n))
     print(ins_avg)
     print(shell_avg)
     print(py_sort_avg)
