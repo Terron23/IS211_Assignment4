@@ -49,17 +49,18 @@ def binary_search_recursive(a_list, item):
         return False, time.time() - start_time
     else:
         midpoint = len(a_list) // 2
-    if a_list[midpoint] == item:
-        return True, time.time() - start_time
-    else:
-        if item < a_list[midpoint]:
-            return binary_search_recursive(a_list[:midpoint], item)
+        if a_list[midpoint] == item:
+            return True, time.time() - start_time
+        elif item < a_list[midpoint]:
+                return binary_search_recursive(a_list[:midpoint], item)
         else:
             return binary_search_recursive(a_list[midpoint + 1:], item)
 
 def main():
     n = 100
-    sample = [500, 1000, 10000]
+    sample = [500]
+    #Not sure if it should be 100 list of 500 or 100 list of [500, 1000, 10000] un comment below for the latter
+    #sample = [500, 1000, 10000]
     look_for = -1
     avg = {"seq": 0,
         "ord_seq": 0,
@@ -68,14 +69,16 @@ def main():
 
     for i in range(n):
         random_num = random.choice(sample)
-        arr = random.sample(range(0, random_num), random_num)
-        sortedArr = sorted(arr)
-        avg["seq"] += sequential_search(sortedArr, look_for)[1]
-        avg["ord_seq"] += ordered_sequential_search(sortedArr, look_for)[1]
+        arr = random.sample(range(0, random_num * 10 + i), random_num)
+        arr.sort()
+        avg["seq"] += sequential_search(arr, look_for)[1]
+        avg["ord_seq"] += ordered_sequential_search(arr, look_for)[1]
         avg["bin_iter"] += binary_search_iterative(arr, look_for)[1]
         recur = binary_search_recursive(arr, look_for)
-        if (recur[0] == True or recur[0] == False): 
+        if recur[0] == True or recur[0] == False: 
             avg["bin_recur"] += recur[1]
+    
+    #Print statements
     seq_avg = 'Sequential Search took {0} seconds to run, on average'.format(str(avg["seq"] /n))
     ord_seq_avg = 'Ordered Sequential Search took {0} seconds to run, on average'.format(str(avg["ord_seq"] /n))
     bin_iter_avg = 'Binary Iterative Search took {0} seconds to run, on average'.format(str(avg["bin_iter"] /n))
@@ -87,4 +90,5 @@ def main():
     return avg
         
 if __name__ == '__main__':
+    #no need for argparse as data is random
     main()
