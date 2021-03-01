@@ -50,7 +50,7 @@ def main():
 
     for i in range(n):
         random_num = random.choice(sample)
-        arr = random.sample(range(0, random_num), random_num)
+        arr = random.sample(range(0, random_num * 10 + i), random_num)
         avg["ins"] += insertion_sort(arr)[1]
         avg["shell"] += shell_sort(arr)[1]
         avg["py_sort"] += python_sort(arr)[1]
